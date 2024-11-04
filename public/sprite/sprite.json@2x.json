@@ -1,0 +1,1698 @@
+{
+	"nav-arrow-ios": {
+		"x": 0,
+		"y": 0,
+		"width": 64,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"light": {
+		"x": 64,
+		"y": 0,
+		"width": 40,
+		"height": 17,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"meter_box-blue": {
+		"x": 104,
+		"y": 0,
+		"width": 25,
+		"height": 40,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"meter_box-red": {
+		"x": 129,
+		"y": 0,
+		"width": 25,
+		"height": 39,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_CountyRoad/Num/7": {
+		"x": 154,
+		"y": 0,
+		"width": 36,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_G/7": {
+		"x": 190,
+		"y": 0,
+		"width": 36,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ProvincialRoad/Num/7": {
+		"x": 226,
+		"y": 0,
+		"width": 36,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_S/7": {
+		"x": 262,
+		"y": 0,
+		"width": 36,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_NationalRoad/Num/7": {
+		"x": 298,
+		"y": 0,
+		"width": 36,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Tiananmen": {
+		"x": 334,
+		"y": 0,
+		"width": 35,
+		"height": 22,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_NationalRoad/Num/6": {
+		"x": 369,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/7": {
+		"x": 401,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/8": {
+		"x": 401,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/13": {
+		"x": 401,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/14": {
+		"x": 401,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_CountyRoad/Num/6": {
+		"x": 433,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/7": {
+		"x": 465,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/8": {
+		"x": 465,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/13": {
+		"x": 465,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/14": {
+		"x": 465,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_S/6": {
+		"x": 497,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_G/6": {
+		"x": 529,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ProvincialRoad/Num/6": {
+		"x": 561,
+		"y": 0,
+		"width": 32,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"nav-arrow32": {
+		"x": 593,
+		"y": 0,
+		"width": 32,
+		"height": 32,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-exit": {
+		"x": 625,
+		"y": 0,
+		"width": 30,
+		"height": 31,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/6": {
+		"x": 655,
+		"y": 0,
+		"width": 30,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/11": {
+		"x": 655,
+		"y": 0,
+		"width": 30,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/12": {
+		"x": 655,
+		"y": 0,
+		"width": 30,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/6": {
+		"x": 685,
+		"y": 0,
+		"width": 30,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/11": {
+		"x": 685,
+		"y": 0,
+		"width": 30,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/12": {
+		"x": 685,
+		"y": 0,
+		"width": 30,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Elevator": {
+		"x": 715,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-shenyang": {
+		"x": 743,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ATM": {
+		"x": 771,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Airport": {
+		"x": 799,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-shenzhen": {
+		"x": 827,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-shijiazhuang": {
+		"x": 855,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-suzhou": {
+		"x": 883,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-tianjin": {
+		"x": 911,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank": {
+		"x": 939,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-ABC": {
+		"x": 967,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-BCM": {
+		"x": 995,
+		"y": 0,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-BOC": {
+		"x": 0,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-CCB": {
+		"x": 28,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-CEB": {
+		"x": 56,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-CIB": {
+		"x": 84,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-CITIC": {
+		"x": 112,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-CMB": {
+		"x": 140,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-CMBC": {
+		"x": 168,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-HXB": {
+		"x": 196,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-ICBC": {
+		"x": 224,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-Post": {
+		"x": 252,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bank-SPDB": {
+		"x": 280,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Bar": {
+		"x": 308,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Building": {
+		"x": 336,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Pharmacy": {
+		"x": 364,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"BusStop": {
+		"x": 392,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"CSG": {
+		"x": 420,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Cafe": {
+		"x": 448,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Capital": {
+		"x": 476,
+		"y": 40,
+		"width": 28,
+		"height": 27,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-wenzhou": {
+		"x": 504,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ChargingStation": {
+		"x": 532,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ChinaMobile": {
+		"x": 560,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ChinaTelecom": {
+		"x": 588,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ChinaUnion": {
+		"x": 616,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ChineseRestaurant": {
+		"x": 644,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Cinema": {
+		"x": 672,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-wuhan": {
+		"x": 700,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Community": {
+		"x": 728,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-wulumuqi": {
+		"x": 756,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-wuxi": {
+		"x": 784,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-xiamen": {
+		"x": 812,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-xian": {
+		"x": 840,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-xianggang": {
+		"x": 868,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-xuzhou": {
+		"x": 896,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"DailyStore": {
+		"x": 924,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Dock": {
+		"x": 952,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-zhengzhou": {
+		"x": 980,
+		"y": 40,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"FillingStation": {
+		"x": 0,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"GasStation": {
+		"x": 28,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Gate": {
+		"x": 56,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Government": {
+		"x": 84,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Hospital": {
+		"x": 112,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Hotel": {
+		"x": 140,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"KFC": {
+		"x": 168,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"KTV": {
+		"x": 196,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Library": {
+		"x": 224,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"MacDonald": {
+		"x": 252,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Mountain": {
+		"x": 280,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Museum": {
+		"x": 308,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Supermaket": {
+		"x": 336,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Swim": {
+		"x": 364,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Terminal": {
+		"x": 392,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Toilet": {
+		"x": 420,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Toilet_Men": {
+		"x": 448,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Toilet_Women": {
+		"x": 476,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"University": {
+		"x": 504,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"WestermRestaurant": {
+		"x": 532,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Zoo": {
+		"x": 560,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"broadcast": {
+		"x": 588,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"camera": {
+		"x": 616,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"information": {
+		"x": 644,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Park": {
+		"x": 672,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Parking": {
+		"x": 700,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Police": {
+		"x": 728,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Post": {
+		"x": 756,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_CountyRoad/Num/5": {
+		"x": 784,
+		"y": 68,
+		"width": 28,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_G/5": {
+		"x": 812,
+		"y": 68,
+		"width": 28,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_S/5": {
+		"x": 840,
+		"y": 68,
+		"width": 28,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"sound": {
+		"x": 868,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_NationalRoad/Num/5": {
+		"x": 896,
+		"y": 68,
+		"width": 28,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ProvincialRoad/Num/5": {
+		"x": 924,
+		"y": 68,
+		"width": 28,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"RailwayStation": {
+		"x": 952,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"RestArea": {
+		"x": 980,
+		"y": 68,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ScenicSpot": {
+		"x": 0,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"School": {
+		"x": 28,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ShoppingMall": {
+		"x": 56,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Sport": {
+		"x": 84,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Stairs": {
+		"x": 112,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Starbucks": {
+		"x": 140,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-aomen": {
+		"x": 168,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-beijing": {
+		"x": 196,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-changchun": {
+		"x": 224,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-changsha": {
+		"x": 252,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-changzhou": {
+		"x": 280,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-chengdu": {
+		"x": 308,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-chongqing": {
+		"x": 336,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-dalian": {
+		"x": 364,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-dongguan": {
+		"x": 392,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-foshan": {
+		"x": 420,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-fuzhou": {
+		"x": 448,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-guangzhou": {
+		"x": 476,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-guiyang": {
+		"x": 504,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-haerbin": {
+		"x": 532,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-hangzhou": {
+		"x": 560,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-hefei": {
+		"x": 588,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-jinan": {
+		"x": 616,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-kunming": {
+		"x": 644,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-lanzhou": {
+		"x": 672,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-nanchang": {
+		"x": 700,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-nanjing": {
+		"x": 728,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-nanning": {
+		"x": 756,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-ningbo": {
+		"x": 784,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-qingdao": {
+		"x": 812,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway-shanghai": {
+		"x": 840,
+		"y": 96,
+		"width": 28,
+		"height": 28,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_S/4": {
+		"x": 868,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/5": {
+		"x": 894,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/9": {
+		"x": 894,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/10": {
+		"x": 894,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_NationalRoad/Num/4": {
+		"x": 920,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/5": {
+		"x": 946,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/9": {
+		"x": 946,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/10": {
+		"x": 946,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_G/4": {
+		"x": 972,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_CountyRoad/Num/4": {
+		"x": 998,
+		"y": 96,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ProvincialRoad/Num/4": {
+		"x": 0,
+		"y": 124,
+		"width": 26,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"SGCC": {
+		"x": 26,
+		"y": 124,
+		"width": 24,
+		"height": 24,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ProvincialRoad/Num/3": {
+		"x": 50,
+		"y": 124,
+		"width": 22,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/4": {
+		"x": 72,
+		"y": 124,
+		"width": 22,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_S/3": {
+		"x": 94,
+		"y": 124,
+		"width": 22,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_NationalRoad/Num/3": {
+		"x": 116,
+		"y": 124,
+		"width": 22,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/4": {
+		"x": 138,
+		"y": 124,
+		"width": 22,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_G/3": {
+		"x": 160,
+		"y": 124,
+		"width": 22,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_CountyRoad/Num/3": {
+		"x": 182,
+		"y": 124,
+		"width": 22,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/3": {
+		"x": 204,
+		"y": 124,
+		"width": 20,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit/default/4": {
+		"x": 224,
+		"y": 124,
+		"width": 20,
+		"height": 20,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit/default/5": {
+		"x": 244,
+		"y": 124,
+		"width": 20,
+		"height": 20,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit/default/6": {
+		"x": 264,
+		"y": 124,
+		"width": 20,
+		"height": 20,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit/default/7": {
+		"x": 284,
+		"y": 124,
+		"width": 20,
+		"height": 20,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit/default/3": {
+		"x": 304,
+		"y": 124,
+		"width": 20,
+		"height": 20,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit/default/1": {
+		"x": 324,
+		"y": 124,
+		"width": 20,
+		"height": 20,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit/default/2": {
+		"x": 344,
+		"y": 124,
+		"width": 20,
+		"height": 20,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/3": {
+		"x": 364,
+		"y": 124,
+		"width": 20,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_G/2": {
+		"x": 384,
+		"y": 124,
+		"width": 18,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ProvincialRoad/Num/2": {
+		"x": 402,
+		"y": 124,
+		"width": 18,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_NationalRoad/Num/2": {
+		"x": 420,
+		"y": 124,
+		"width": 18,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_S/2": {
+		"x": 438,
+		"y": 124,
+		"width": 18,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_CountyRoad/Num/2": {
+		"x": 456,
+		"y": 124,
+		"width": 18,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"nav-arrow18": {
+		"x": 474,
+		"y": 124,
+		"width": 18,
+		"height": 18,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ProvincialRoad/Num/1": {
+		"x": 492,
+		"y": 124,
+		"width": 14,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/1": {
+		"x": 506,
+		"y": 124,
+		"width": 12,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street/default/2": {
+		"x": 518,
+		"y": 124,
+		"width": 16,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/1": {
+		"x": 534,
+		"y": 124,
+		"width": 12,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_G/1": {
+		"x": 546,
+		"y": 124,
+		"width": 14,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County/bg/2": {
+		"x": 560,
+		"y": 124,
+		"width": 16,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_NationalRoad/Num/1": {
+		"x": 576,
+		"y": 124,
+		"width": 14,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_CountyRoad/Num/1": {
+		"x": 590,
+		"y": 124,
+		"width": 14,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"R_ExpressWay/Num_S/1": {
+		"x": 604,
+		"y": 124,
+		"width": 14,
+		"height": 16,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"City": {
+		"x": 618,
+		"y": 124,
+		"width": 14,
+		"height": 14,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Captial-Foreign": {
+		"x": 632,
+		"y": 124,
+		"width": 14,
+		"height": 14,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"ProvincialCapital": {
+		"x": 646,
+		"y": 124,
+		"width": 14,
+		"height": 14,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"1": {
+		"x": 660,
+		"y": 124,
+		"width": 12,
+		"height": 12,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"POI3": {
+		"x": 672,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"PT_Exit": {
+		"x": 682,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"County": {
+		"x": 692,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Town": {
+		"x": 702,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"SouthIsland": {
+		"x": 712,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Annotation1": {
+		"x": 722,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Village": {
+		"x": 732,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Annotation2": {
+		"x": 742,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Annotation3": {
+		"x": 752,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Street": {
+		"x": 762,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"TrafficLights": {
+		"x": 772,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Building_NO": {
+		"x": 782,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"SubwayStation/operation": {
+		"x": 792,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Annotation4": {
+		"x": 802,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Ociean": {
+		"x": 812,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"POI1": {
+		"x": 822,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"POI2": {
+		"x": 832,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"SubwayStation/construction": {
+		"x": 842,
+		"y": 124,
+		"width": 10,
+		"height": 10,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"Subway": {
+		"x": 852,
+		"y": 124,
+		"width": 8,
+		"height": 8,
+		"pixelRatio": 1,
+		"sdf": false
+	},
+	"0": {
+		"x": 860,
+		"y": 124,
+		"width": 2,
+		"height": 2,
+		"pixelRatio": 1,
+		"sdf": false
+	}
+}

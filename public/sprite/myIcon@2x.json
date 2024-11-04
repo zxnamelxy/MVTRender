@@ -1,0 +1,170 @@
+{
+  "学校": {
+      "x": 0,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "小学": {
+      "x": 32,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "初中": {
+      "x": 64,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "高中": {
+      "x": 96,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "加油站": {
+      "x": 128,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "厂矿企业": {
+      "x": 160,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "乡镇级党政机关": {
+      "x": 192,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "公司": {
+      "x": 224,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "区片名": {
+      "x": 256,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "综合医院": {
+      "x": 288,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "区县级事业单位": {
+      "x": 320,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "交警队": {
+      "x": 352,
+      "y": 0,
+      "width": 33,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "精神病医院": {
+      "x": 385,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "产业园区": {
+      "x": 417,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "职业技术学校": {
+      "x": 449,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "城市广场": {
+      "x": 481,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "商业大厦、写字楼": {
+      "x": 513,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "康复医院": {
+      "x": 545,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "批发市场": {
+      "x": 577,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "商住两用楼": {
+      "x": 609,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  },
+  "眼科医院": {
+      "x": 641,
+      "y": 0,
+      "width": 32,
+      "height": 32,
+      "pixelRatio": 1,
+      "sdf": false
+  }
+}

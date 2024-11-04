@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    // 多个图片生成精灵图
+    const arr = [
+      '学校',
+      '小学',
+      '初中',
+      '高中',
+      '加油站',
+      '厂矿企业',
+      '乡镇级党政机关',
+      '公司',
+      '区片名',
+      '综合医院',
+      '区县级事业单位',
+      '交警队',
+      '精神病医院',
+      '产业园区',
+      '职业技术学校',
+      '城市广场',
+      '商业大厦、写字楼',
+      '康复医院',
+      '批发市场',
+      '商住两用楼',
+      '眼科医院',
+    ]
+    const promisees = []
+    arr.forEach(item => {
+      const p = new Promise((resolve, reject) => {
+        const img = new Image()
+        img.src = `./${item}.png`
+        // const xb = 50 / img.width
+        // console.log(img.width);
+        // img.width *= xb
+        // img.height *= xb
+        // console.log(img.width, xb);
+        img.onload = () => {
+          resolve({
+            image: img,
+            width: img.width,
+            height: img.height,
+            item
+          })
+        }
+      })
+      promisees.push(p)
+    })
+    Promise.all(promisees).then(res => {
+      let json = {}
+      let x = 0
+      let width = 0
+      const height = res.sort((a, b) => b.height - a.height)[0].height
+      const canvas = document.getElementById("canvas")
+      res.forEach(res => {
+        width += res.width
+      })
+      canvas.height = height
+      canvas.width = width
+      const ctx = canvas.getContext('2d')
+      res.forEach(({ image, width, height, item }) => {
+        const j = {
+          x,
+          y: 0,
+          width: width,
+          height: height,
+          pixelRatio: 1,
+          sdf: false
+        }
+        json[item] = j
+        ctx.drawImage(image, x, 0, width, height)
+        x += width
+      })
+      console.log(json);
+    })
+  </script>
+</body>
+
+</html>
