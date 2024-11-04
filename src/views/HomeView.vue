@@ -3,10 +3,7 @@
     <div class="header">
       <span class="text">多源数据融合中心</span>
     </div>
-    <div
-      class="content"
-      element-loading-background="rgba(0, 0, 0, 0.8)"
-    >
+    <div class="content" element-loading-background="rgba(0, 0, 0, 0.8)">
       <div class="title"><i class="iconfont icon-odbc"></i> 多源数据中心</div>
       <el-tree
         check-strictly
@@ -17,7 +14,9 @@
         node-key="id"
         @check-change="checkChange"
         @node-click="nodeClick"
-        :default-checked-keys="Array.from({ length: 100 }, (_, index) => index + 1)"
+        :default-checked-keys="
+          Array.from({ length: 100 }, (_, index) => index + 1)
+        "
       >
         <!-- :default-checked-keys="Array.from({ length: 100 }, (_, index) => index + 1)" -->
         <span class="custom-tree-node" slot-scope="{ data }">
@@ -56,9 +55,13 @@
 <script>
 const local = window.location.origin;
 const pathname = window.location.pathname;
-const ak = '';
-import "cesium/Build/Cesium/Widgets/widgets.css"
-import * as Cesium from 'cesium';
+const ak = "158c71dc21fd904203259f71df203da0";
+import "cesium/Build/Cesium/Widgets/widgets.css";
+import * as Cesium from "cesium";
+window.CESIUM_BASE_URL = "./Cesium/";
+Cesium.Ion.defaultAccessToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZjJiMTE2OS1lYzAwLTRlODEtYjAyYy01MTE2YTBmMTNjNGMiLCJpZCI6MTk1OTkxLCJpYXQiOjE3MDgxMzQ5NjR9.O4FIGMW_v4OxAm2GTsiwllrQ7DehNBLbodUk_eSZo-E";
+import MVTDynamicPrimitive from "@/utils/MVT/MVTDynamicPrimitive.js";
 
 export default {
   name: "HomeView",
@@ -75,34 +78,70 @@ export default {
     return {
       layer: [],
       treeData: [
+        // {
+        //   id: 2,
+        //   //name: "武安兴趣点POI",
+        //   name: "POI",
+        //   sourceType: "vector",
+        //   layerType: "point",
+        //   // layerName: "wa-poi",
+        //   // url: `http://192.168.30.86:2231/stservice/tile_vector/1844294626165395457/{z}/{x}/{y}?ak=${ak}`,
+        //   // extent: [113.7787893, 36.50141499, 114.3664393, 37.00680837],
+        //   // "source-layer": "t_1844294626165395457_130481POI",
+        //   // poiNameAttr: "名称",
+        //   // poiTypeAttr: "类别",
+        // },
         {
           id: 2,
           //name: "武安兴趣点POI",
-          name: "兴趣点POI",
+          name: "线",
           sourceType: "vector",
-          layerType: "point",
-          layerName: "wa-poi",
-          url: `http://192.168.30.86:2231/stservice/tile_vector/1844294626165395457/{z}/{x}/{y}?ak=${ak}`,
-          extent: [
-            113.7787893,36.50141499,114.3664393,37.00680837
-          ],
-          "source-layer": "t_1844294626165395457_130481POI",
-          poiNameAttr: "名称",
-          poiTypeAttr: "类别",
+          layerType: "polyline",
+          // layerName: "wa-poi",
+          // url: `http://192.168.30.86:2231/stservice/tile_vector/1844294626165395457/{z}/{x}/{y}?ak=${ak}`,
+          // extent: [113.7787893, 36.50141499, 114.3664393, 37.00680837],
+          // "source-layer": "t_1844294626165395457_130481POI",
+          // poiNameAttr: "名称",
+          // poiTypeAttr: "类别",
         },
       ],
-      view: null,
+      viewer: null,
     };
   },
   mounted() {
     this.initMap();
+    this.addTreeDataLayers();
   },
   methods: {
     initMap() {
-      this.view = new Cesium.Viewer('map');
+      Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(
+        // 西边经度
+        89.5,
+        // 南边纬度
+        20.4,
+        // 东边经度
+        110.4,
+        // 北边纬度
+        61.2
+      );
+      this.viewer = new Cesium.Viewer("map", {
+        infoBox: false,
+        baseLayerPicker: false,
+        selectionIndicator: false,
+        navigation: false,
+        animation: false,
+        shouldAnimate: false,
+        timeline: false,
+        geocoder: false,
+        homeButton: false,
+        sceneModePicker: false,
+        navigationHelpButton: false,
+      });
+      // 隐藏版权显示
+      this.viewer._cesiumWidget._creditContainer.style.display = "none";
     },
     checkLayerTypeLoad(i) {
-      if(i.sourceType !== 'raster'){
+      if (i.sourceType !== "raster") {
         switch (i.layerType) {
           case "polygon":
             this.addPolygon(i);
@@ -120,7 +159,7 @@ export default {
             break;
         }
       } else {
-        this.addRasterLayer(i)
+        this.addRasterLayer(i);
       }
     },
     addTreeDataLayers() {
@@ -134,28 +173,67 @@ export default {
         }
       });
     },
-    load3DTilesByMapboxLayer(name, id, url, data) {
-    },
-    checkChange(data, itemCheck) {
-    },
-    nodeClick(data, node, event) {
-    },
+    load3DTilesByMapboxLayer(name, id, url, data) {},
+    checkChange(data, itemCheck) {},
+    nodeClick(data, node, event) {},
     add3DTiles(data) {
       if (!this.map.getLayer(data.layerName)) {
         // 2024年大名县主城区3Dtiles
-        this.load3DTilesByMapboxLayer(data.layerName, data.layerName, data.url, data);
+        this.load3DTilesByMapboxLayer(
+          data.layerName,
+          data.layerName,
+          data.url,
+          data
+        );
       } else {
         this.map.removeLayer(data.layerName);
         this.map.removeSource(data.layerName); // 如果使用的是矢量图层，也需要移除source
       }
     },
-    addTerrain() {
-    },
-    addPolygon(data) {
-    },
+    addTerrain() {},
+    addPolygon(data) {},
     addPolyLine(data) {
+      const mvtUrl = `http://106.119.74.112:2231/stservice/tile_vector/1799339397532078081/{z}/{x}/{y}?ak=${ak}`; // 3857
+      // const mvtUrl = "http://106.119.74.112:2231/stservice/tile_vector/1799322455605760002/{z}/{x}/{y}?ak=158c71dc21fd904203259f71df203da0";
+      const mvtp = new MVTDynamicPrimitive(this.viewer.scene, mvtUrl, {
+        minZoom: 5,
+      });
+      this.viewer.scene.primitives.add(mvtp);
+      // window.mvtprimitives = mvtp;
     },
     addPoint(data) {
+      const mvtUrl = `http://106.119.74.112:2231/stservice/tile_vector/1819653822637809666/{z}/{x}/{y}?ak=${ak}`; // 3857
+      // const mvtUrl = `http://106.119.74.112:2231/stservice/tile_vector/1799327351000256513/{z}/{x}/{y}?ak=${ak}`; // 4490
+      const mvtp = new MVTDynamicPrimitive(this.viewer.scene, mvtUrl, {
+        // 矢量瓦片偏移级别
+        offsetZoom: 0,
+        renderOptions: {
+          // 点渲染参数
+          Point: {
+            // 注记字段名称，不指定此字段，或者字段无效，将不显示注记
+            // textField: "name",
+            //
+            // minLabelNum: 500,
+            // 是否显示点
+            // showPoint: false,
+            // 注记参数，详情参考 Cesium.Label.ConstructorOptions
+            textOptions: {
+              fillColor: Cesium.Color.BLACK,
+              outlineColor: Cesium.Color.WHITE,
+              horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+              verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+              pixelOffset: new Cesium.Cartesian2(0, -16),
+              style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+              outlineWidth: 5,
+              font: "20px sans-serif",
+              heightReference: Cesium.HeightReference.RELATIVE_TO_GROUND,
+              height: 100,
+              disableDepthTestDistance: 10000000,
+            },
+          },
+        },
+      });
+      this.viewer.scene.primitives.add(mvtp);
       // const imgFilter = [
       //   "match",
       //   ["get", data.poiTypeAttr || ''],
@@ -204,8 +282,7 @@ export default {
       //   "区片名", // 默认图标
       // ]
     },
-    addRasterLayer(data){
-    }
+    addRasterLayer(data) {},
   },
 };
 </script>
@@ -214,6 +291,11 @@ export default {
 #map {
   width: 100vw;
   height: 100vh;
+}
+::v-deep {
+  .cesium-viewer-fullscreenContainer {
+    display: none !important;
+  }
 }
 .map_box {
   .header {

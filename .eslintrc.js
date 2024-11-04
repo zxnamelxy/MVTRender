@@ -8,7 +8,7 @@ module.exports = {
         node: true, // 例子：这样设置之后，就支持新的 node 全局变量和类型
     },
     parserOptions: {  // 优先级低于parse的语法解析配置
-        ecmaVersion: 2020, // 允许使用ES语法
+        ecmaVersion: 2021, // 允许使用ES语法
         sourceType: 'module', // 允许使用import
     },
     extends: [ // 让 ESlint 添加规则模块
@@ -21,6 +21,7 @@ module.exports = {
         "no-alert": process.env.NODE_ENV === "production" ? "warn" : "off",      
         "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",      
         "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",      
+        "no-underscore-dangle": "warn",
         "eqeqeq": "warn",  // 要求使用 === 和 !==      
         "no-dupe-args": "error", // 禁止 function 定义中出现重名参数      
         "no-dupe-keys": "error", // 禁止对象字面量中出现重复的 key      
