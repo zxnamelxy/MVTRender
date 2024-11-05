@@ -27,7 +27,8 @@ export default class GeoJsonRenderFactory {
             if (render) {
                 let typeOptions = {}
                 if(options != null){
-                    typeOptions =  options[type]
+                    // typeOptions =  options[type]
+                    typeOptions =  options
                 } 
                 return new render(geoJson, typeOptions);
             }

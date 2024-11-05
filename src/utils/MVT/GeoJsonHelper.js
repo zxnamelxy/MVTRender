@@ -6,14 +6,14 @@ import {
 export default class GeoJsonHelper {
 
 
-    static coordsToPolylineInstance(coordinates){
+    static coordsToPolylineInstance(coordinates, width){
         if (!coordinates || coordinates.length < 2) {
             return null
         }
 
         var geometry = new GroundPolylineGeometry({
             positions: coordinatesArrayToCartesianArray(coordinates),
-            width: 5.0,
+            width: width,
         });
 
         return new GeometryInstance({

@@ -78,19 +78,19 @@ export default {
     return {
       layer: [],
       treeData: [
-        // {
-        //   id: 2,
-        //   //name: "武安兴趣点POI",
-        //   name: "POI",
-        //   sourceType: "vector",
-        //   layerType: "point",
-        //   // layerName: "wa-poi",
-        //   // url: `http://192.168.30.86:2231/stservice/tile_vector/1844294626165395457/{z}/{x}/{y}?ak=${ak}`,
-        //   // extent: [113.7787893, 36.50141499, 114.3664393, 37.00680837],
-        //   // "source-layer": "t_1844294626165395457_130481POI",
-        //   // poiNameAttr: "名称",
-        //   // poiTypeAttr: "类别",
-        // },
+        {
+          id: 2,
+          //name: "武安兴趣点POI",
+          name: "POI",
+          sourceType: "vector",
+          layerType: "point",
+          // layerName: "wa-poi",
+          // url: `http://192.168.30.86:2231/stservice/tile_vector/1844294626165395457/{z}/{x}/{y}?ak=${ak}`,
+          // extent: [113.7787893, 36.50141499, 114.3664393, 37.00680837],
+          // "source-layer": "t_1844294626165395457_130481POI",
+          // poiNameAttr: "名称",
+          // poiTypeAttr: "类别",
+        },
         {
           id: 2,
           //name: "武安兴趣点POI",
@@ -211,7 +211,7 @@ export default {
           // 点渲染参数
           Point: {
             // 注记字段名称，不指定此字段，或者字段无效，将不显示注记
-            // textField: "name",
+            textField: "名称",
             //
             // minLabelNum: 500,
             // 是否显示点

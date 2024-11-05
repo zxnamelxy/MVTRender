@@ -61,7 +61,8 @@ export default class GeoJsonRender4MultiLineString extends GeoJsonRender {
         return true;
     }
 
-    static instancesToPrimitive(intances) {
+    static instancesToPrimitive(intances, scene, mvtUrl, renderOptions) {
+        Object.assign(polylinAppearance, renderOptions)
 
         if (!intances || !intances.length) {
             return null;

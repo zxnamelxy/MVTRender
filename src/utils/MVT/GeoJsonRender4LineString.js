@@ -22,7 +22,6 @@ export default class GeoJsonRender4LineString extends GeoJsonRender {
         if (!geometry) {
             return null;
         }
-
         const coordinates = geometry.coordinates
         return GeoJsonHelper.coordsToRect([coordinates]);
     }
@@ -34,8 +33,9 @@ export default class GeoJsonRender4LineString extends GeoJsonRender {
             return null;
         }
 
+        const width = this.options.width || 5.0;
         const coordinates = geometry.coordinates
-        var instance = GeoJsonHelper.coordsToPolylineInstance(coordinates);
+        var instance = GeoJsonHelper.coordsToPolylineInstance(coordinates, width);
         instance.geoJson = this.json;
         
         return [instance];
@@ -52,7 +52,9 @@ export default class GeoJsonRender4LineString extends GeoJsonRender {
         return true;
     }
 
-    static instancesToPrimitive(intances) {
+    static instancesToPrimitive(intances, scene, mvtUrl, renderOptions) {
+        // console.log(renderOptions);
+        Object.assign(polylinAppearance, renderOptions)
 
         if (!intances || !intances.length) {
             return null;
@@ -66,6 +68,7 @@ export default class GeoJsonRender4LineString extends GeoJsonRender {
             geometryInstances: intances,
             appearance: polylinAppearance,
             asynchronous: true,
+            width: 0,
             releaseGeometryInstances: true,
         });
         

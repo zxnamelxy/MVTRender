@@ -10,10 +10,11 @@ import {
     Color, defined, LabelStyle, PrimitiveCollection,
     Rectangle, HorizontalOrigin,
     VerticalOrigin,
-    Math
+    Math,
+    PointPrimitiveCollection
 } from "./cesiumAdapter.js"
 
-const defaultPointImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAALVJREFUOE9jZEADAtNu2zMxMsQx/GdwYGBgUIJK32NgZDjw7z/Dog9ZqgeRtTAic4Sm35nF8P9/KrqhKHxGxtnvMlXSYGJwA4Sm3d7BwMDgjlczQnLnuyxVDxAXbABRNqObDHUJI9jPDAwHiLQZRdk/BgYHRqHpt+cy/GdIIscABkaGeYxC027fRQptUs25BzLgP6m6UKKRGgZQ6AVKA5HiaKQ4IcFClKKkDDeEkswEM4TU7AwAoCRVl8lZL7gAAAAASUVORK5CYII=";
+// const defaultPointImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAALVJREFUOE9jZEADAtNu2zMxMsQx/GdwYGBgUIJK32NgZDjw7z/Dog9ZqgeRtTAic4Sm35nF8P9/KrqhKHxGxtnvMlXSYGJwA4Sm3d7BwMDgjlczQnLnuyxVDxAXbABRNqObDHUJI9jPDAwHiLQZRdk/BgYHRqHpt+cy/GdIIscABkaGeYxC027fRQptUs25BzLgP6m6UKKRGgZQ6AVKA5HiaKQ4IcFClKKkDDeEkswEM4TU7AwAoCRVl8lZL7gAAAAASUVORK5CYII=";
 
 const defaultTextOpitons = {
     fillColor: Color.BLACK,
@@ -42,7 +43,8 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
         options.showPoint = defined(options.showPoint) ? options.showPoint : true;
 
         super(geoJson, options)
-        this.pointImage = options.pointImage || defaultPointImage
+        this.pointImage = options.pointImage
+        this.pointScale = options.pointScale || 1
     }
 
     isGeometryInstance() {
@@ -67,13 +69,23 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
         const instance = {
             position,
             scale: 1,
-            geoJson: this.json
+            geoJson: this.json,
         }
         if (showPoint) {
-            instances.push({
+            // console.log(this.options.textOptions);
+            // debugger;
+            const _instance = {
                 ...instance,
-                image: this.pointImage
-            })
+                image: this.pointImage || null,
+                scale: this.pointScale,
+            }
+            if(!_instance.image){
+                delete _instance.image
+            }
+            // Object.assign(_instance, textOptions);
+            // console.log(_instance);
+            // debugger
+            instances.push(_instance)
         }
 
         if (textField && properties) {
@@ -107,7 +119,8 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
 
             const typeBuf = {
                 texts: [],
-                images: []
+                images: [],
+                defaults: [],
             }
             instances.reduce((a, v) => {
                 if (v.image) {
@@ -115,11 +128,13 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
                 }
                 else if (v.text) {
                     typeBuf.texts.push(v)
+                }else {
+                    typeBuf.defaults.push(v)
                 }
 
             }, 0);
 
-            const { images, texts } = typeBuf;
+            const { images, texts, defaults } = typeBuf;
 
             const pc = new PrimitiveCollection()
 
@@ -170,6 +185,33 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
                         lcpcMap.delete(mvtUrl);
                     }
                 }
+            }
+
+            if (defaults.length > 0) {
+                const bc = new PointPrimitiveCollection()
+                const pointStyle = JSON.parse(JSON.stringify(renderOptions.Point));
+                delete pointStyle.textOptions;
+
+                for (let i = 0, il = defaults.length; i < il; i++) {
+                    defaults[i].id = i;
+                    const instance = {
+                        ...defaults[i],
+                        ...pointStyle
+                    }
+                    bc.add(instance)
+                }
+
+                const _propertiesArray = defaults.map(_ => {
+                    const pps = _.geoJson;
+                    delete _.geoJson;
+                    return pps;
+                });
+
+                bc.getMvtGeoJson = (pickedFeature) => {
+                    return _propertiesArray[pickedFeature.id];
+                }
+
+                pc.add(bc)
             }
 
             return pc

@@ -33,6 +33,7 @@ export const {
     VerticalOrigin,
     WebMercatorTilingScheme,
     WebMercatorProjection,
+    PointPrimitiveCollection
 } = Cesium;
 
 optimizeBillboard();

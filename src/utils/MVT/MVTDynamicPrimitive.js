@@ -160,7 +160,7 @@ class MVTDynamicPrimitive {
             return;
         }
 
-        const { scene, loadingTiles, loadedPrimitives, loadedTiles, removingTiles, _primitive, url, tempGeoJsons } = this;
+        const { scene, loadingTiles, loadedPrimitives, loadedTiles, removingTiles, _primitive, url, tempGeoJsons, options } = this;
         const globe = scene.globe;
 
         removeOutScreenTiles(this);
@@ -184,7 +184,7 @@ class MVTDynamicPrimitive {
             return;
         }
 
-        await pickATileAndParseToGeoJson(loadingTiles, loadedTiles, globe, frameState, tempGeoJsons, url)
+        await pickATileAndParseToGeoJson.bind(this)(loadingTiles, loadedTiles, globe, frameState, tempGeoJsons, url)
         calcVisibleTiles(this);
 
         this.lastTime = now.clone();
@@ -283,8 +283,8 @@ function calcMvtXYZ (terrainProvider, terrainLevel, rectangle, tileSize, minZoom
 
     z += offsetZoom
 
-    z = Math.max(z, minZoom)
-    z = Math.min(z, maxZoom)
+    if (minZoom) z = Math.max(z, minZoom)
+    if (maxZoom) z = Math.min(z, maxZoom)
 
     const northwestTC = WMTilingScheme.positionToTileXY(
         Rectangle.northwest(rectangle),
@@ -381,7 +381,7 @@ function renderData (geoJsons, scene, renderOptions, mvtUrl) {
                         const e = s + maxUnitPerPrimitive;
                         const subInstaces = finalInstance.slice(s, e);
 
-                        const primitive = renderClass.instancesToPrimitive(subInstaces, scene, mvtUrl);
+                        const primitive = renderClass.instancesToPrimitive(subInstaces, scene, mvtUrl, renderOptions);
                         primitives.push(primitive);
                     }
                 }
@@ -398,7 +398,7 @@ async function getTileGeoJsons (tile, url, pixelScale) {
     const { level, x, y } = tile;
     // "http://localhost:8084/api/v1/vector-tiles/f9daf1be8c864da1c9b4eb78fa5502fc/tiles/{z}/{x}/{y}";
     const realUrl = url.replace("{z}", level).replace("{x}", x).replace("{y}", y)
-    return await decodePbfToGeoJsonsAndFilter(realUrl, level, x, y, pixelScale);
+    return await decodePbfToGeoJsonsAndFilter.bind(this)(realUrl, level, x, y, pixelScale);
 }
 
 import decodePbfToGeoJsons from './decodePbfToGeoJsons.js';
@@ -416,7 +416,7 @@ async function decodePbfToGeoJsonsAndFilter (pbfurl, level, x, y, pixelScale) {
     const resGS = await decodePbfToGeoJsons(pbfurl, level, x, y);
     if (resGS) {
         resGS.filter(geoJson => {
-            const render = GeoJsonRenderFactory.getRender(geoJson);
+            const render = GeoJsonRenderFactory.getRender(geoJson, this.options.renderOptions);
             if (render) {
                 const rect = render.getRect();
 
@@ -636,7 +636,7 @@ async function pickATileAndParseToGeoJson (loadingTiles, loadedTiles, globe, fra
                 // renderData _primitive
                 // 6378166 为一弧度对应的近似距离米数
                 // 3189083 = 6378166 / 2
-                const geoJsons = await getTileGeoJsons(sv, url, pixelScale / 3189083);
+                const geoJsons = await getTileGeoJsons.bind(this)(sv, url, pixelScale / 3189083);
                 if (geoJsons) {
                     tempGeoJsons.set(sk, geoJsons)
                 }
