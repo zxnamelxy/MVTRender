@@ -91,6 +91,7 @@ class MVTDynamicPrimitive {
         this.loadingTiles = new Map();
         this.removingTiles = new Map();
         this.tempGeoJsons = new Map();
+        this.currentTiles = new Map();
         this._primitive = new PrimitiveCollection();
         this.show = true;
         this.maxZoom = options.maxZoom || NumberKeyHelper.maxLevel;
@@ -99,13 +100,7 @@ class MVTDynamicPrimitive {
         this.offsetZoom = options.offsetZoom || 0;
 
         this.lastTime = JulianDate.now(tempTime).clone();
-
-        this.currentZ = 0;
-        this.previousZ = 0;
-
-        let minx = NumberKeyHelper.maxTileCoord, maxx = 0;
-        let miny = NumberKeyHelper.maxTileCoord, maxy = 0;
-        Object.assign(this, { minx, miny, maxx, maxy });
+        this.lastPrimitiveTime = JulianDate.now(tempTime).clone();
 
         this.renderOptions =
         {
@@ -118,11 +113,12 @@ class MVTDynamicPrimitive {
             Object.assign(this.renderOptions, options.renderOptions);
         }
 
-
         this.fetchMetaData();
+
+        window.mvtp = this;
     }
 
-    async fetchMetaData () {
+    async fetchMetaData() {
         const { options, url } = this;
         if (!defined(options.maxZoom) || !defined(options.minZoom)) {
             const metaUrl = getMetaDataUrl(url);
@@ -155,39 +151,40 @@ class MVTDynamicPrimitive {
     /**
      * @private
      */
-    async update (frameState) {
+    async update(frameState) {
         if (!this.show) {
             return;
         }
 
-        const { scene, loadingTiles, loadedPrimitives, loadedTiles, removingTiles, _primitive, url, tempGeoJsons, options } = this;
+        const { scene, loadingTiles, loadedPrimitives, loadedTiles, removingTiles, _primitive, url, tempGeoJsons } = this;
         const globe = scene.globe;
 
-        removeOutScreenTiles(this);
-
-        if (tempGeoJsons.size > 0) {
-            pickAGeoJsonToPrimitives(this);
-        }
-
         let now = JulianDate.now(tempTime);
-        if (JulianDate.secondsDifference(now, this.lastTime) < 0.025) {
+        if (JulianDate.secondsDifference(now, this.lastPrimitiveTime) < 0.02){
             pickAPrimitiveToRender(this);
         }
 
         _primitive.update(frameState);
 
+        this.lastPrimitiveTime = JulianDate.now(tempTime).clone();
+
         if (window.pauseMVTRender) {
             return;
         }
 
+        // 确保执行后续操作的时间间隔大于50ms,以避免造成渲染卡顿
         if (JulianDate.secondsDifference(now, this.lastTime) < 0.05) {
             return;
+        }
+
+        if (tempGeoJsons.size > 0) {
+            pickAGeoJsonToPrimitives(this);
         }
 
         await pickATileAndParseToGeoJson.bind(this)(loadingTiles, loadedTiles, globe, frameState, tempGeoJsons, url)
         calcVisibleTiles(this);
 
-        this.lastTime = now.clone();
+        this.lastTime = JulianDate.now(tempTime).clone();
     }
 
     /**
@@ -201,7 +198,7 @@ class MVTDynamicPrimitive {
      *
      * @see MVTDynamicPrimitive#destroy
      */
-    isDestroyed () {
+    isDestroyed() {
         return false;
     }
 
@@ -221,14 +218,14 @@ class MVTDynamicPrimitive {
      *
      * @see MVTDynamicPrimitive#isDestroyed
      */
-    destroy () {
+    destroy() {
         this._primitive = this._primitive && this._primitive.destroy();
         return destroyObject(this);
     }
 }
 
 const tempMap = new Map();
-function parseTilesToRender (globe, tileSize, minZoom, maxZoom, offsetZoom) {
+function parseTilesToRender(globe, tileSize, minZoom, maxZoom, offsetZoom) {
 
     tempMap.clear();
     var tiles = globe._surface._tilesToRender
@@ -255,7 +252,7 @@ function parseTilesToRender (globe, tileSize, minZoom, maxZoom, offsetZoom) {
 }
 
 const WMTilingScheme = new WebMercatorTilingScheme();
-function calcMvtXYZ (terrainProvider, terrainLevel, rectangle, tileSize, minZoom, maxZoom, offsetZoom) {
+function calcMvtXYZ(terrainProvider, terrainLevel, rectangle, tileSize, minZoom, maxZoom, offsetZoom) {
 
     if (rectangle.north >= WebMercatorProjection.MaximumLatitude ||
         rectangle.south <= -WebMercatorProjection.MaximumLatitude) {
@@ -283,8 +280,8 @@ function calcMvtXYZ (terrainProvider, terrainLevel, rectangle, tileSize, minZoom
 
     z += offsetZoom
 
-    if (minZoom) z = Math.max(z, minZoom)
-    if (maxZoom) z = Math.min(z, maxZoom)
+    if(minZoom) z = Math.max(z, minZoom)
+    if(maxZoom) z = Math.min(z, maxZoom)
 
     const northwestTC = WMTilingScheme.positionToTileXY(
         Rectangle.northwest(rectangle),
@@ -298,10 +295,14 @@ function calcMvtXYZ (terrainProvider, terrainLevel, rectangle, tileSize, minZoom
     const tiles = [];
     for (let i = northwestTC.x; i <= southeastTC.x; i++) {
         for (let j = northwestTC.y; j <= southeastTC.y; j++) {
+
+            var crc = WMTilingScheme.tileXYToRectangle(i, j, z, new Rectangle());
+
             tiles.push({
                 level: z,
                 x: i,
-                y: j
+                y: j,
+                rectangle: crc
             });
         }
     }
@@ -318,7 +319,7 @@ function calcMvtXYZ (terrainProvider, terrainLevel, rectangle, tileSize, minZoom
  * @returns {number} The level with the specified texel spacing or less.
  * @private
  */
-function getLevelWithMaximumTexelSpacing (
+function getLevelWithMaximumTexelSpacing(
     tilingScheme,
     tileWidth,
     texelSpacing,
@@ -342,7 +343,7 @@ function getLevelWithMaximumTexelSpacing (
     return rounded | 0;
 }
 
-function renderData (geoJsons, scene, renderOptions, mvtUrl) {
+function renderData(geoJsons, scene, renderOptions, mvtUrl) {
     if (geoJsons) {
 
         const instanceMap = new Map();
@@ -394,7 +395,7 @@ function renderData (geoJsons, scene, renderOptions, mvtUrl) {
     return null;
 }
 
-async function getTileGeoJsons (tile, url, pixelScale) {
+async function getTileGeoJsons(tile, url, pixelScale) {
     const { level, x, y } = tile;
     // "http://localhost:8084/api/v1/vector-tiles/f9daf1be8c864da1c9b4eb78fa5502fc/tiles/{z}/{x}/{y}";
     const realUrl = url.replace("{z}", level).replace("{x}", x).replace("{y}", y)
@@ -412,7 +413,7 @@ import decodePbfToGeoJsons from './decodePbfToGeoJsons.js';
  * @param {*} pixelScale 
  * @returns 
  */
-async function decodePbfToGeoJsonsAndFilter (pbfurl, level, x, y, pixelScale) {
+async function decodePbfToGeoJsonsAndFilter(pbfurl, level, x, y, pixelScale) {
     const resGS = await decodePbfToGeoJsons(pbfurl, level, x, y);
     if (resGS) {
         resGS.filter(geoJson => {
@@ -435,7 +436,7 @@ async function decodePbfToGeoJsonsAndFilter (pbfurl, level, x, y, pixelScale) {
 
 const tileFlag = "tiles/{z}/{x}/{y}"
 const tileMetaData = "metadata"
-function getMetaDataUrl (url) {
+function getMetaDataUrl(url) {
     // 元数据：http://localhost:8084/api/v1/vector-tiles/6856969a7990b9f69b6679e6174e0d5a/metadata
     // url:   http://localhost:8084/api/v1/vector-tiles/6856969a7990b9f69b6679e6174e0d5a/tiles/{z}/{x}/{y}
 
@@ -451,7 +452,7 @@ function getMetaDataUrl (url) {
  * @param {*} tempGeoJsons geoJson队列
  * @param {*} loadedPrimitives primitive队列
  */
-function pickAGeoJsonToPrimitives (mvtPrimitive) {
+function pickAGeoJsonToPrimitives(mvtPrimitive) {
     const { tempGeoJsons, loadedPrimitives, scene, renderOptions } = mvtPrimitive
     const iterator1 = tempGeoJsons.keys();
     const sk = iterator1.next().value;
@@ -470,40 +471,38 @@ function pickAGeoJsonToPrimitives (mvtPrimitive) {
  * @param {*} _primitive 
  * @param {*} loadedTiles 
  */
-function pickAPrimitiveToRender (mvtPrimitive) {
+function pickAPrimitiveToRender(mvtPrimitive) {
     if (mvtPrimitive.loadedPrimitives.size > 0) {
         const { loadedPrimitives, _primitive, loadedTiles } = mvtPrimitive
         const iter = loadedPrimitives.keys();
         const sk = iter.next().value;
         const primitives = loadedPrimitives.get(sk)
         if (primitives.length > 0) {
-            const fst = primitives.shift()
-            if (fst) {
-                _primitive.add(fst);
-                if (!loadedTiles.has(sk)) {
-                    loadedTiles.set(sk, [])
+
+            const loaded = [];
+            for(let i = 0, il = primitives.length; i < il; i++){
+                
+                const fst = primitives[i]
+                if (fst) {
+                    _primitive.add(fst);
+                    loaded.push(fst);
                 }
-
-                const loaded = loadedTiles.get(sk);
-                loaded.push(fst);
             }
+            loadedTiles.set(sk, loaded)
         }
-        if (primitives.length < 1) {
-            loadedPrimitives.delete(sk);
-
-            removeExpiredTiles(mvtPrimitive, sk);
-        }
+   
+        loadedPrimitives.delete(sk);
     }
 }
 
-function removeExpiredTilesAll (mvtPrimitive) {
-    const {
-        removingTiles, _primitive, loadedTiles
-    } = mvtPrimitive
+function removeOutScreenTiles(mvtPrimitive) {
+    if (mvtPrimitive.removingTiles.size > 0) {
+        const {
+            removingTiles, _primitive, loadedTiles, 
+        } = mvtPrimitive
 
-    const iter = removingTiles.keys();
-    let sk = iter.next().value;
-    while (sk) {
+        const iter = removingTiles.keys();
+        let sk = iter.next().value;
         const items = removingTiles.get(sk)
         if (items) {
             for (let i = 0, il = items.length; i < il; i++) {
@@ -513,94 +512,6 @@ function removeExpiredTilesAll (mvtPrimitive) {
         }
         loadedTiles.delete(sk);
         removingTiles.delete(sk);
-        sk = iter.next().value;
-    }
-}
-
-function removeOutScreenTiles (mvtPrimitive) {
-    if (mvtPrimitive.removingTiles.size > 0) {
-        const { loadedPrimitives, loadingTiles, tempGeoJsons } = mvtPrimitive
-        if (loadedPrimitives.size < 1 && loadingTiles.size < 1 && tempGeoJsons.size < 1) {
-            removeExpiredTilesAll(mvtPrimitive);
-            return;
-        }
-
-        const {
-            removingTiles, _primitive, loadedTiles, currentZ,
-            minx, miny, maxx, maxy
-        } = mvtPrimitive
-
-        const iter = removingTiles.keys();
-        let sk = iter.next().value;
-        while (sk) {
-            const { x, y, z } = NumberKeyHelper.xyz(sk);
-            let flag = true;
-            // TODO： 优化判断方法，transTileCoord得到的应该是一个瓦片坐标的矩形范围，而不应该是一个点
-            // 还要判断 矩形范围 是否和当前视图的矩形范围相交
-            const coord = transTileCoord({ x, y, level: z }, currentZ);
-            if (coord.x < maxx && coord.x > minx && coord.y < maxy && coord.y > miny) {
-                flag = false;
-            }
-
-            if (flag) {
-                const items = removingTiles.get(sk)
-                if (items) {
-                    for (let i = 0, il = items.length; i < il; i++) {
-                        const item = items[i]
-                        _primitive.remove(item)
-                    }
-                }
-                loadedTiles.delete(sk);
-                removingTiles.delete(sk);
-            }
-
-            sk = iter.next().value;
-        }
-    }
-}
-
-/**
- * 移除过期的瓦片集合
- * @param {*} removingTiles 
- * @param {*} _primitive 
- * @param {*} loadedTiles 
- */
-function removeExpiredTiles (mvtPrimitive, key) {
-    const { removingTiles, _primitive, loadedTiles, currentZ, previousZ } = mvtPrimitive
-    if (removingTiles.size > 0) {
-        const dz = previousZ - currentZ;// 6 - 5 = 1
-        if (dz < 1) {
-            return;
-        }
-        const sz = Math.pow(2, dz);
-        const { x, y, z } = NumberKeyHelper.xyz(key);
-
-        const dx = Math.floor(x * sz);
-        const dy = Math.floor(y * sz);
-
-        const iz = z + dz;
-
-        const delta = Math.ceil(sz);
-
-        const xmin = dx, xmax = dx + delta;
-        const ymin = dy, ymax = dy + delta;
-
-        for (let ix = xmin; ix < xmax; ix++) {
-            for (let iy = ymin; iy < ymax; iy++) {
-                const sk = NumberKeyHelper.make(ix, iy, iz);
-                if (removingTiles.has(sk)) {
-                    const items = removingTiles.get(sk)
-                    if (items) {
-                        for (let i = 0, il = items.length; i < il; i++) {
-                            const item = items[i]
-                            _primitive.remove(item)
-                        }
-                    }
-                    loadedTiles.delete(sk);
-                    removingTiles.delete(sk);
-                }
-            }
-        }
     }
 }
 
@@ -613,7 +524,7 @@ function removeExpiredTiles (mvtPrimitive, key) {
  * @param {*} tempGeoJsons 
  * @param {*} url 
  */
-async function pickATileAndParseToGeoJson (loadingTiles, loadedTiles, globe, frameState, tempGeoJsons, url) {
+async function pickATileAndParseToGeoJson(loadingTiles, loadedTiles, globe, frameState, tempGeoJsons, url) {
     const tilesToRender = globe._surface._tilesToRender;
     if (tilesToRender && tilesToRender.length > 0) {
         const globeMesh = tilesToRender[0].data.mesh;
@@ -649,7 +560,7 @@ async function pickATileAndParseToGeoJson (loadingTiles, loadedTiles, globe, fra
  * 计算当前可见的瓦片集合
  * @param {*} mvtPrimitive 
  */
-function calcVisibleTiles (mvtPrimitive) {
+function calcVisibleTiles(mvtPrimitive) {
     const { tileSize, minZoom, maxZoom, offsetZoom } = mvtPrimitive;
     const { scene, loadingTiles, loadedPrimitives, loadedTiles, removingTiles, _primitive, url, tempGeoJsons } = mvtPrimitive;
     const globe = scene.globe;
@@ -685,10 +596,7 @@ function calcVisibleTiles (mvtPrimitive) {
         loadedPrimitives.delete(item.k);
     }
 
-    let avgLevel = 0;
     currentTiles.forEach((v, k, m) => {
-        avgLevel += v.level;
-
         if (removingTiles.has(k)) {
             loadedTiles.set(k, removingTiles.get(k))
             removingTiles.delete(k)
@@ -699,33 +607,114 @@ function calcVisibleTiles (mvtPrimitive) {
         }
     })
 
-    avgLevel /= size;
-    avgLevel = Math.floor(avgLevel + 0.5);
-    if (mvtPrimitive.currentZ != avgLevel) {
-        mvtPrimitive.previousZ = mvtPrimitive.currentZ;
-        mvtPrimitive.currentZ = avgLevel;
-    }
-
-    let minx = NumberKeyHelper.maxTileCoord, maxx = 0;
-    let miny = NumberKeyHelper.maxTileCoord, maxy = 0;
+    const unloadedKeys = [];
     currentTiles.forEach((v, k, m) => {
-        const { x, y } = transTileCoord(v, avgLevel);
-        minx = Math.min(minx, x);
-        maxx = Math.max(maxx, x);
-        miny = Math.min(miny, y);
-        maxy = Math.max(maxy, y);
-    })
-
-    Object.assign(mvtPrimitive, { minx, miny, maxx, maxy });
-
-    loadedTiles.forEach((v, k, m) => {
-        if (!currentTiles.has(k)) {
-            removingTiles.set(k, v)
+        if (!loadedTiles.has(k)) {
+            unloadedKeys.push(k);
         }
     })
+
+    const revovingKeys = new Map();
+    let maxz = 0;
+    let minz = 100;
+    loadedTiles.forEach((v, k, m) => {
+        if (!currentTiles.has(k)) {
+            revovingKeys.set(k, v);
+            const xyz = NumberKeyHelper.xyz(k)
+            minz = Math.min(xyz.z, minz);
+            maxz = Math.max(xyz.z, maxz);
+        }
+    })
+
+    for(let i = 0, il = unloadedKeys.length; i < il; i++){
+        const key = unloadedKeys[i];
+        const xyz = NumberKeyHelper.xyz(key)
+        let tr = deleteParentRemoveingTiles(xyz.x, xyz.y, xyz.z, revovingKeys, minz);
+        if(!tr){
+            deleteChildRemoveingTiles(xyz.x, xyz.y, xyz.z, revovingKeys, maxz);
+        }
+    }
+
+    revovingKeys.forEach((v, k, m) => {
+        removingTiles.set(k, v)
+    })
+
+    if(unloadedKeys.length < 1){
+        removeOutScreenTiles(mvtPrimitive);
+    }
+}
+function deleteChildRemoveingTiles(tx, ty, tz, revovingKeys, maxz){
+    if(revovingKeys.size < 1){
+        return false;
+    }
+
+    let cz = tz + 1;
+
+    if(cz > maxz){
+        return false;
+    }
+
+    let cx = tx * 2, cy = ty * 2;
+    let tk = NumberKeyHelper.make(cx, cy, cz);
+    if(revovingKeys.has(tk)){
+        revovingKeys.delete(tk);
+    }
+    else{
+        deleteChildRemoveingTiles( cx, cy, cz, revovingKeys, maxz);
+    }
+
+    cx = tx * 2 + 1, cy = ty * 2;
+    tk = NumberKeyHelper.make(cx, cy, cz);
+    if(revovingKeys.has(tk)){
+        revovingKeys.delete(tk);
+    }
+    else{
+        deleteChildRemoveingTiles(cx, cy, cz, revovingKeys, maxz);
+    }
+
+    cx = tx * 2, cy = ty * 2 + 1;
+    tk = NumberKeyHelper.make(cx, cy, cz);
+    if(revovingKeys.has(tk)){
+        revovingKeys.delete(tk);
+    }
+    else{
+        deleteChildRemoveingTiles( cx, cy, cz, revovingKeys, maxz);
+    }
+
+    cx = tx * 2 + 1, cy = ty * 2 + 1;
+    tk = NumberKeyHelper.make(cx, cy, cz);
+    if(revovingKeys.has(tk)){
+        revovingKeys.delete(tk);
+    }
+    else{
+        deleteChildRemoveingTiles( cx, cy, cz, revovingKeys, maxz);
+    }
 }
 
-function transTileCoord (tile, dstLevel) {
+function deleteParentRemoveingTiles(tx, ty, tz, revovingKeys, minz){
+    if(revovingKeys.size < 1){
+        return false;
+    }
+
+    tx = Math.floor(tx / 2)
+    ty = Math.floor(ty / 2)
+    tz = tz - 1
+    if(tz < minz){
+        return false;
+    }
+
+
+    let tk = NumberKeyHelper.make(tx, ty, tz);
+    if(revovingKeys.has(tk)){
+        revovingKeys.delete(tk);
+        return true;
+    }
+    else{
+        return deleteParentRemoveingTiles( tx, ty, tz, revovingKeys, minz);
+    }
+}
+
+function transTileCoord(tile, dstLevel) {
     const { x, y, level } = tile
     const delta = dstLevel - level;
 
