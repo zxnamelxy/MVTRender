@@ -1,6 +1,6 @@
 import {
     Cartesian3, GeometryInstance, PolygonHierarchy,
-    PolygonGeometry, GroundPolylineGeometry, Rectangle
+    PolygonGeometry, GroundPolylineGeometry, Rectangle, Color, ColorGeometryInstanceAttribute
 } from "./cesiumAdapter.js";
 
 export default class GeoJsonHelper {

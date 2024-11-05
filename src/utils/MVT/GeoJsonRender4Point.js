@@ -11,8 +11,13 @@ import {
     Rectangle, HorizontalOrigin,
     VerticalOrigin,
     Math,
-    PointPrimitiveCollection
+    PointPrimitiveCollection,
+    Cartographic,
+    Ellipsoid,
+    sampleTerrainMostDetailed,
+    when
 } from "./cesiumAdapter.js"
+import * as Cesium from 'cesium';
 
 // const defaultPointImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAALVJREFUOE9jZEADAtNu2zMxMsQx/GdwYGBgUIJK32NgZDjw7z/Dog9ZqgeRtTAic4Sm35nF8P9/KrqhKHxGxtnvMlXSYGJwA4Sm3d7BwMDgjlczQnLnuyxVDxAXbABRNqObDHUJI9jPDAwHiLQZRdk/BgYHRqHpt+cy/GdIIscABkaGeYxC027fRQptUs25BzLgP6m6UKKRGgZQ6AVKA5HiaKQ4IcFClKKkDDeEkswEM4TU7AwAoCRVl8lZL7gAAAAASUVORK5CYII=";
 
@@ -44,47 +49,70 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
 
         super(geoJson, options)
         this.pointImage = options.pointImage
+        this.iconJson = options.iconJson
         this.pointScale = options.pointScale || 1
     }
 
-    isGeometryInstance() {
+    isGeometryInstance () {
         return false;
     }
 
-    getRect() {
+    getRect () {
         return Rectangle.MAX_VALUE.clone()
     }
 
-    toInstances() {
+    toInstances (scene) {
         const { geometry, properties } = this.json;
-        const { showPoint, textField, textOptions } = this.options;
+        const { showPoint, textField, textOptions, heightField, pointTypeField } = this.options;
 
         if (!geometry) {
             return null;
         }
 
         const coordinates = geometry.coordinates
+        let h = 0
+        let height = 0
+        if (heightField && properties) h = properties[heightField] + 70;
+        // let cartesian3 = Cartesian3.fromDegrees(coordinates[0], coordinates[1], 0);
+        // let cartographic = Cartographic.fromCartesian(cartesian3);
+        // const height2 = await viewer.terrainProvider.getHeight(cartographic);
+        // var height = scene.globe.getHeight(cartographic);
+        // console.log(height);
+        // debugger;
+        // var cartesian= Cartesian3.fromDegrees(100,20)
+        // var ellipsoid = scene.globe.ellipsoid
+        // let p = ellipsoid.cartesianToCartographic(cartesian)
+        // let promise = sampleTerrainMostDetailed(window.viewer.terrainProvider, [p])
+        // console.log(Cesium.when);
+        // debugger;
+        // Cesium.when(promise, function () {
+        //     console.log(Cartographic.toCartesian(p));
+        //     debugger;
+        // })
         let instances = [];
-        const position = Cartesian3.fromDegrees(coordinates[0], coordinates[1]);
+        const position = Cartesian3.fromDegrees(coordinates[0], coordinates[1], h);
         const instance = {
             position,
             scale: 1,
             geoJson: this.json,
         }
         if (showPoint) {
-            // console.log(this.options.textOptions);
-            // debugger;
+            let img = null
+            if(pointTypeField && properties){
+                console.log(properties[pointTypeField]);
+                img = this.iconJson[properties[pointTypeField]]
+                if(!img){
+                    img = this.iconJson['default']
+                }
+            }
             const _instance = {
                 ...instance,
-                image: this.pointImage || null,
+                image: this.pointImage || img,
                 scale: this.pointScale,
             }
-            if(!_instance.image){
+            if (!_instance.image) {
                 delete _instance.image
             }
-            // Object.assign(_instance, textOptions);
-            // console.log(_instance);
-            // debugger
             instances.push(_instance)
         }
 
@@ -108,11 +136,11 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
         return instances
     }
 
-    get type() {
+    get type () {
         return 'Point'
     }
 
-    static instancesToPrimitive(instances, scene, mvtUrl, renderOptions) {
+    static instancesToPrimitive (instances, scene, mvtUrl, renderOptions) {
         renderOptions = renderOptions || {};
 
         if (instances && instances.length > 0) {
@@ -128,7 +156,7 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
                 }
                 else if (v.text) {
                     typeBuf.texts.push(v)
-                }else {
+                } else {
                     typeBuf.defaults.push(v)
                 }
 
@@ -163,7 +191,7 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
 
             if (texts.length > 0) {
                 const pointOptions = {};
-                Object.assign(pointOptions, renderOptions.Point)
+                Object.assign(pointOptions, renderOptions)
 
                 const lcp = new LabelsClusterPrimitive(scene, texts, pointOptions);
 
@@ -181,7 +209,7 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
                 pc.destroy = () => {
                     lcpc.remove(lcp, true);
                     pc.destroyOri();
-                    if(lcpc.isDestroyed()){
+                    if (lcpc.isDestroyed()) {
                         lcpcMap.delete(mvtUrl);
                     }
                 }
@@ -189,7 +217,7 @@ export default class GeoJsonRender4Point extends GeoJsonRender {
 
             if (defaults.length > 0) {
                 const bc = new PointPrimitiveCollection()
-                const pointStyle = JSON.parse(JSON.stringify(renderOptions.Point));
+                const pointStyle = JSON.parse(JSON.stringify(renderOptions));
                 delete pointStyle.textOptions;
 
                 for (let i = 0, il = defaults.length; i < il; i++) {

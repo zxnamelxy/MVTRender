@@ -5,12 +5,6 @@ import {
     GroundPolylinePrimitive, PolylineMaterialAppearance, Material
 } from './cesiumAdapter.js';
 
-const polylinAppearance = new PolylineMaterialAppearance({
-    translucent: false,
-    material: Material.fromType(
-        Material.PolylineGlowType
-    ),
-});
 
 export default class GeoJsonRender4MultiLineString extends GeoJsonRender {
     constructor(geoJson, options) {
@@ -34,12 +28,13 @@ export default class GeoJsonRender4MultiLineString extends GeoJsonRender {
             return null;
         }
 
+        const width = this.options.width || 5.0;
         const coordinates = geometry.coordinates
         if (coordinates && coordinates.length > 0) {
             const ec = [];
 
             for (let i = 0, il = coordinates.length; i < il; i++) {
-                const entity = GeoJsonHelper.coordsToPolylineInstance(coordinates[i]);
+                const entity = GeoJsonHelper.coordsToPolylineInstance(coordinates[i], width);
                 if (entity) {
                     entity.geoJson = this.json;
                     ec.push(entity);
@@ -62,6 +57,12 @@ export default class GeoJsonRender4MultiLineString extends GeoJsonRender {
     }
 
     static instancesToPrimitive(intances, scene, mvtUrl, renderOptions) {
+        const polylinAppearance = new PolylineMaterialAppearance({
+            translucent: false,
+            material: Material.fromType(
+                Material.PolylineGlowType
+            ),
+        });
         Object.assign(polylinAppearance, renderOptions)
 
         if (!intances || !intances.length) {

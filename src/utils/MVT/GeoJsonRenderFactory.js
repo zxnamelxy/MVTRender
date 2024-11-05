@@ -20,7 +20,6 @@ export default class GeoJsonRenderFactory {
         if (!geoJson || !geoJson.geometry) {
             return null
         }
-
         var type = geoJson.geometry.type;
         if (type) {
             const render = geoJsonRenders[type]

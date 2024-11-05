@@ -33,7 +33,12 @@ export const {
     VerticalOrigin,
     WebMercatorTilingScheme,
     WebMercatorProjection,
-    PointPrimitiveCollection
+    PointPrimitiveCollection,
+    ColorGeometryInstanceAttribute,
+    GroundPrimitive,
+    Ellipsoid,
+    sampleTerrainMostDetailed,
+    when
 } = Cesium;
 
 optimizeBillboard();

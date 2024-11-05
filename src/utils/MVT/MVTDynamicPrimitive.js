@@ -352,7 +352,7 @@ function renderData(geoJsons, scene, renderOptions, mvtUrl) {
 
             const render = GeoJsonRenderFactory.getRender(geoJsons[i], renderOptions);
             if (render) {
-                const instances = render.toInstances();
+                const instances = render.toInstances(scene);
                 if (instances) {
 
                     if (!instanceMap.has(render.type)) {
