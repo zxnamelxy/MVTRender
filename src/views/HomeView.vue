@@ -208,8 +208,8 @@ export default {
           name: "面",
           sourceType: "vector",
           layerType: "polygon",
-          // url: `http://106.119.74.112:2231/stservice/tile_vector/1829086581659672578/{z}/{x}/{y}?ak=${ak}`,
-          url: `http://106.119.74.112:2231/stservice/tile_vector/1829087081666846722/{z}/{x}/{y}?ak=${ak}`,
+          url: `http://106.119.74.112:2231/stservice/tile_vector/1829086581659672578/{z}/{x}/{y}?ak=${ak}`,
+          // url: `http://106.119.74.112:2231/stservice/tile_vector/1829087081666846722/{z}/{x}/{y}?ak=${ak}`,
           mvtLayer: null,
           bounds: [
             114.97053716500612, 36.08551112667936, 115.48131798576647,

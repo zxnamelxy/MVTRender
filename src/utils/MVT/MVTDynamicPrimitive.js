@@ -88,10 +88,12 @@ class MVTDynamicPrimitive {
         this.options = options;
         this.loadedTiles = new Map();
         this.loadedPrimitives = new Map();
+        this.rendingPrimitives = new Map();
         this.loadingTiles = new Map();
         this.removingTiles = new Map();
         this.tempGeoJsons = new Map();
         this.currentTiles = new Map();
+        this.failedTiles = new Map();
         this._primitive = new PrimitiveCollection();
         this.show = true;
         this.maxZoom = options.maxZoom || NumberKeyHelper.maxLevel;
@@ -156,17 +158,33 @@ class MVTDynamicPrimitive {
             return;
         }
 
-        const { scene, loadingTiles, loadedPrimitives, loadedTiles, removingTiles, _primitive, url, tempGeoJsons } = this;
+        const { scene, loadingTiles, failedTiles, loadedTiles, _primitive, url, tempGeoJsons, rendingPrimitives} = this;
         const globe = scene.globe;
 
+        removeOutScreenTiles(this);
+
         let now = JulianDate.now(tempTime);
+        let primitiveRenderResult = null;
         if (JulianDate.secondsDifference(now, this.lastPrimitiveTime) < 0.02){
-            pickAPrimitiveToRender(this);
+            primitiveRenderResult = pickAPrimitiveToRender(this);
         }
 
         _primitive.update(frameState);
 
         this.lastPrimitiveTime = JulianDate.now(tempTime).clone();
+
+        if(primitiveRenderResult){
+            const {key, primitives} = primitiveRenderResult
+            rendingPrimitives.set(key, primitives);
+            await Promise.allSettled(primitives.map(_ => _.readyPromise));
+            loadedTiles.set(key, primitives);
+            rendingPrimitives.delete(key);
+        }
+        else if (JulianDate.secondsDifference(now, this.lastPrimitiveTime) < 0.02){
+            // console.time('calcVisibleTiles');
+            calcVisibleTiles(this);
+            // console.timeEnd('calcVisibleTiles');
+        }
 
         if (window.pauseMVTRender) {
             return;
@@ -181,8 +199,7 @@ class MVTDynamicPrimitive {
             pickAGeoJsonToPrimitives(this);
         }
 
-        await pickATileAndParseToGeoJson.bind(this)(loadingTiles, loadedTiles, globe, frameState, tempGeoJsons, url)
-        calcVisibleTiles(this);
+        await pickATileAndParseToGeoJson.bind(this)(loadingTiles, failedTiles, globe, frameState, tempGeoJsons, url)
 
         this.lastTime = JulianDate.now(tempTime).clone();
     }
@@ -455,9 +472,15 @@ function getMetaDataUrl(url) {
 function pickAGeoJsonToPrimitives(mvtPrimitive) {
     const { tempGeoJsons, loadedPrimitives, scene, renderOptions } = mvtPrimitive
     const iterator1 = tempGeoJsons.keys();
-    const sk = iterator1.next().value;
+    let sk = iterator1.next().value;
 
-    const sv = tempGeoJsons.get(sk)
+    let sv = tempGeoJsons.get(sk)
+
+    while (!sv && sk){
+        sk = iterator1.next().value;
+        sv = tempGeoJsons.get(sk)
+    }
+
     tempGeoJsons.delete(sk);
     const pritives = renderData(sv, scene, renderOptions, mvtPrimitive.url, renderOptions);
     if (pritives && pritives.length > 0) {
@@ -473,25 +496,26 @@ function pickAGeoJsonToPrimitives(mvtPrimitive) {
  */
 function pickAPrimitiveToRender(mvtPrimitive) {
     if (mvtPrimitive.loadedPrimitives.size > 0) {
-        const { loadedPrimitives, _primitive, loadedTiles } = mvtPrimitive
+        const { loadedPrimitives, _primitive } = mvtPrimitive
         const iter = loadedPrimitives.keys();
         const sk = iter.next().value;
         const primitives = loadedPrimitives.get(sk)
         if (primitives.length > 0) {
 
-            const loaded = [];
             for(let i = 0, il = primitives.length; i < il; i++){
                 
                 const fst = primitives[i]
                 if (fst) {
                     _primitive.add(fst);
-                    loaded.push(fst);
+                }
+                else{
+                    debugger;
                 }
             }
-            loadedTiles.set(sk, loaded)
+
+            loadedPrimitives.delete(sk);
+            return { key: sk, primitives }
         }
-   
-        loadedPrimitives.delete(sk);
     }
 }
 
@@ -524,7 +548,7 @@ function removeOutScreenTiles(mvtPrimitive) {
  * @param {*} tempGeoJsons 
  * @param {*} url 
  */
-async function pickATileAndParseToGeoJson(loadingTiles, loadedTiles, globe, frameState, tempGeoJsons, url) {
+async function pickATileAndParseToGeoJson(loadingTiles, failedTiles, globe, frameState, tempGeoJsons, url) {
     const tilesToRender = globe._surface._tilesToRender;
     if (tilesToRender && tilesToRender.length > 0) {
         const globeMesh = tilesToRender[0].data.mesh;
@@ -535,7 +559,7 @@ async function pickATileAndParseToGeoJson(loadingTiles, loadedTiles, globe, fram
 
                 const sv = loadingTiles.get(sk)
                 loadingTiles.delete(sk);
-                loadedTiles.set(sk, [])
+                tempGeoJsons.set(sk, null);
 
                 const firstbs = globeMesh.boundingSphere3D
                 const pixelScale = frameState.camera.getPixelSize(
@@ -549,7 +573,11 @@ async function pickATileAndParseToGeoJson(loadingTiles, loadedTiles, globe, fram
                 // 3189083 = 6378166 / 2
                 const geoJsons = await getTileGeoJsons.bind(this)(sv, url, pixelScale / 3189083);
                 if (geoJsons) {
-                    tempGeoJsons.set(sk, geoJsons)
+                    tempGeoJsons.set(sk, geoJsons);
+                }
+                else{
+                    failedTiles.set(sk, true);
+                    tempGeoJsons.delete(sk);
                 }
             }
         }
@@ -561,8 +589,8 @@ async function pickATileAndParseToGeoJson(loadingTiles, loadedTiles, globe, fram
  * @param {*} mvtPrimitive 
  */
 function calcVisibleTiles(mvtPrimitive) {
-    const { tileSize, minZoom, maxZoom, offsetZoom } = mvtPrimitive;
-    const { scene, loadingTiles, loadedPrimitives, loadedTiles, removingTiles, _primitive, url, tempGeoJsons } = mvtPrimitive;
+    const { tileSize, minZoom, maxZoom, offsetZoom} = mvtPrimitive;
+    const { scene, failedTiles, loadingTiles, tempGeoJsons, loadedPrimitives, rendingPrimitives , loadedTiles, removingTiles } = mvtPrimitive;
     const globe = scene.globe;
     const currentTiles = parseTilesToRender(globe, tileSize, minZoom, maxZoom, offsetZoom);
 
@@ -571,9 +599,60 @@ function calcVisibleTiles(mvtPrimitive) {
         return;
     }
 
+    failedTiles.forEach((v, k) => {
+        if(currentTiles.has(k)){
+            currentTiles.delete(k);
+        }
+    });
+
+    const currentTilesCopy = new Map();
+    currentTiles.forEach((v, k) => {
+        currentTilesCopy.set(k, v)
+    })
+
+
+    loadingTiles.forEach((v, k,) => {
+        if (currentTiles.has(k)) {
+            currentTiles.delete(k);
+        }
+    })
+    
+    tempGeoJsons.forEach((v, k) => {
+        if (currentTiles.has(k)) {
+            currentTiles.delete(k);
+        }
+    })
+
+    loadedPrimitives.forEach((v, k) => {
+        if (currentTiles.has(k)) {
+            currentTiles.delete(k);
+        }
+    })
+
+    rendingPrimitives.forEach((v, k,) => {
+        if (currentTiles.has(k)) {
+            currentTiles.delete(k);
+        }
+    })
+
+    loadedTiles.forEach((v, k) => {
+        if (currentTiles.has(k)) {
+            currentTiles.delete(k);
+        }
+    })
+
+    removingTiles.forEach((v, k) => {
+        if (currentTiles.has(k)) {
+            loadedTiles.set(k, removingTiles.get(k))
+            removingTiles.delete(k)
+            currentTiles.delete(k);
+        }
+    })
+
+
     const needsToRemvingTiles = [];
     loadingTiles.forEach((v, k, m) => {
-        if (!currentTiles.has(k)) {
+        if (!currentTilesCopy.has(k)) {
             needsToRemvingTiles.push({ v, k });
         }
     })
@@ -583,10 +662,11 @@ function calcVisibleTiles(mvtPrimitive) {
         // item.v.destroy();
         loadingTiles.delete(item.k);
     }
-
+    
+    
     const needsToRemvingPs = []
     loadedPrimitives.forEach((v, k, m) => {
-        if (!currentTiles.has(k)) {
+        if (!currentTilesCopy.has(k)) {
             needsToRemvingPs.push({ v, k });
         }
     })
@@ -597,15 +677,24 @@ function calcVisibleTiles(mvtPrimitive) {
     }
 
     currentTiles.forEach((v, k, m) => {
-        if (removingTiles.has(k)) {
-            loadedTiles.set(k, removingTiles.get(k))
-            removingTiles.delete(k)
-        }
-
-        if (!loadingTiles.has(k) && !loadedTiles.has(k)) {
-            loadingTiles.set(k, v);
-        }
+        loadingTiles.set(k, v);
     })
+
+
+    findCanRemoveTiles(mvtPrimitive, currentTilesCopy);
+    
+}
+
+function findCanRemoveTiles(mvtPrimitive, currentTiles){
+    
+    const {loadedTiles, removingTiles} = mvtPrimitive;
+
+    
+    // loadedTiles.forEach((v, k, m) => {
+    //     if (!currentTiles.has(k)) {
+    //         removingTiles.set(k, v)
+    //     }
+    // })
 
     const unloadedKeys = [];
     currentTiles.forEach((v, k, m) => {
@@ -629,20 +718,17 @@ function calcVisibleTiles(mvtPrimitive) {
     for(let i = 0, il = unloadedKeys.length; i < il; i++){
         const key = unloadedKeys[i];
         const xyz = NumberKeyHelper.xyz(key)
-        let tr = deleteParentRemoveingTiles(xyz.x, xyz.y, xyz.z, revovingKeys, minz);
+        let tr = deleteParentRemoveingTiles(xyz.x, xyz.y, xyz.z, revovingKeys, Math.max(minz, xyz.z - 3));
         if(!tr){
-            deleteChildRemoveingTiles(xyz.x, xyz.y, xyz.z, revovingKeys, maxz);
+            deleteChildRemoveingTiles(xyz.x, xyz.y, xyz.z, revovingKeys, Math.min(maxz, xyz.z + 3));
         }
     }
 
     revovingKeys.forEach((v, k, m) => {
         removingTiles.set(k, v)
     })
-
-    if(unloadedKeys.length < 1){
-        removeOutScreenTiles(mvtPrimitive);
-    }
 }
+
 function deleteChildRemoveingTiles(tx, ty, tz, revovingKeys, maxz){
     if(revovingKeys.size < 1){
         return false;
