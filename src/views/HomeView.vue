@@ -107,6 +107,9 @@ function createDashedLineMaterial(
   return dashedLineMaterial;
 }
 let viewer;
+const treeLayers = [
+
+]
 export default {
   name: "HomeView",
   filters: {
@@ -277,6 +280,13 @@ export default {
     };
   },
   mounted() {
+    // treeLayers
+    this.treeData.forEach(i => {
+      treeLayers.push({
+        layerName: i.name,
+        mvtLayer: null
+      })
+    })
     this.initMap();
     this.addTreeDataLayers();
   },
@@ -361,7 +371,9 @@ export default {
       });
     },
     checkChange(data, itemCheck) {
-      data.mvtLayer.show = itemCheck;
+      // data.mvtLayer.show = itemCheck;
+      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
+      treeLayerObj.mvtLayer.show = itemCheck;
     },
     nodeClick(data, node, event) {
       switch (data.layerType) {
@@ -374,7 +386,8 @@ export default {
       }
     },
     flyTo3DTiles(data) {
-      viewer.flyTo(data.mvtLayer);
+      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
+      viewer.flyTo(treeLayerObj.mvtLayer);
     },
     flyToLayer(data) {
       let west, south, east, north;
@@ -422,7 +435,9 @@ export default {
           url: data.url,
         })
       );
-      data.mvtLayer = tileset;
+      // data.mvtLayer = tileset;
+      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
+      treeLayerObj.mvtLayer = tileset;
     },
     addTerrain() {},
     addMVTLayer(data) {
@@ -430,7 +445,9 @@ export default {
         renderOptions: data.renderOptions,
       });
       viewer.scene.primitives.add(mvtp);
-      data.mvtLayer = mvtp;
+      // data.mvtLayer = mvtp;
+      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
+      treeLayerObj.mvtLayer = mvtp;
     },
     // addPoint(data) {
     //   // const imgFilter = [
