@@ -107,9 +107,7 @@ function createDashedLineMaterial(
   return dashedLineMaterial;
 }
 let viewer;
-const treeLayers = [
-
-]
+const treeLayers = [];
 export default {
   name: "HomeView",
   filters: {
@@ -125,86 +123,240 @@ export default {
     return {
       layer: [],
       treeData: [
-        // {
-        //   id: 1,
-        //   //name: "小区",
-        //   name: "POI",
-        //   sourceType: "vector",
-        //   layerType: "point",
-        //   url: `http://106.119.74.112:2231/stservice/tile_vector/1819653822637809666/{z}/{x}/{y}?ak=${ak}`,
-        //   mvtLayer: null,
-        //   bounds: [
-        //     12815702.063046811, 4339337.185487918, 12820523.677588403,
-        //     4342118.149611221,
-        //   ],
-        //   crsCode: "EPSG:3857",
-        //   renderOptions: {
-        //     // 点渲染参数
-        //     // 注记字段名称，不指定此字段，或者字段无效，将不显示注记
-        //     textField: "名称",
-        //     heightField: "高度",
-        //     // minLabelNum: 500,
-        //     // 是否显示点
-        //     // showPoint: false,
-        //     // 注记参数，详情参考 Cesium.Label.ConstructorOptions
-        //     // pointImage: require('@/assets/iconImg/区片名.png'),
-        //     pointTypeField: "类别",
-        //     iconJson: pointIconJson,
-        //     // color: Cesium.Color.RED,
-        //     // outlineWidth: 3,
-        //     // outlineColor: Cesium.Color.BLACK,
-        //     textOptions: {
-        //       fillColor: Cesium.Color.BLACK,
-        //       outlineColor: Cesium.Color.WHITE,
-        //       horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-        //       verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-        //       pixelOffset: new Cesium.Cartesian2(0, -16),
-        //       style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-        //       outlineWidth: 5,
-        //       font: "20px sans-serif",
-        //       heightReference: Cesium.HeightReference.RELATIVE_TO_GROUND,
-        //       height: 100,
-        //       disableDepthTestDistance: 10000000,
-        //     },
-        //   },
-        // },
-        // {
-        //   id: 2,
-        //   //name: "大名县城市道路",
-        //   name: "线",
-        //   sourceType: "vector",
-        //   layerType: "polyline",
-        //   url: `http://106.119.74.112:2231/stservice/tile_vector/1827229149723500545/{z}/{x}/{y}?ak=${ak}`,
-        //   mvtLayer: null,
-        //   bounds: [
-        //     115.10990511263094, 36.2503638904812, 115.23108853710637,
-        //     36.31885029680379,
-        //   ],
-        //   crsCode: "EPSG:4490",
-        //   renderOptions: {
-        //     // Polyline: {
-        //     // color: Cesium.Color.RED,
-        //     width: 6,
-        //     // material: new Cesium.Material({
-        //     //   fabric: {
-        //     //     type: "Color",
-        //     //     uniforms: {
-        //     //       color: new Cesium.Color(1.0, 1.0, 0.0, 1.0),
-        //     //     },
-        //     //   },
-        //     // }),
-        //     // material: createRoundCapMaterial(Cesium.Color.YELLOW),
-        //     // material: Cesium.Material.fromType(Cesium.Material.PolylineOutlineType),
-        //     // material: Cesium.Material.fromType(Cesium.Material.RimLightingType),
-        //     // material: Cesium.Material.fromType(Cesium.Material.PolylineDashType),
-        //     material: createDashedLineMaterial(
-        //       Cesium.Color.YELLOW,
-        //       10.0 // 虚线长度
-        //       // 20.0 // 间隔长度
-        //     ),
-        //     // },
-        //   },
-        // },
+        {
+          id: 1,
+          //name: "小区",
+          name: "POI",
+          sourceType: "vector",
+          layerType: "point",
+          url: `http://106.119.74.112:2231/stservice/tile_vector/1819653822637809666/{z}/{x}/{y}?ak=${ak}`,
+          mvtLayer: null,
+          bounds: [
+            12815702.063046811, 4339337.185487918, 12820523.677588403,
+            4342118.149611221,
+          ],
+          crsCode: "EPSG:3857",
+          minZoom: 9,
+          renderOptions: {
+            // 点渲染参数
+            // 注记字段名称，不指定此字段，或者字段无效，将不显示注记
+            textField: "名称",
+            heightField: "高度",
+            // minLabelNum: 500,
+            // 是否显示点
+            // showPoint: false,
+            // 注记参数，详情参考 Cesium.Label.ConstructorOptions
+            // pointImage: require('@/assets/iconImg/区片名.png'),
+            pointTypeField: "类别",
+            iconJson: pointIconJson,
+            // color: Cesium.Color.RED,
+            // outlineWidth: 3,
+            // outlineColor: Cesium.Color.BLACK,
+            textOptions: {
+              fillColor: Cesium.Color.BLACK,
+              outlineColor: Cesium.Color.WHITE,
+              horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
+              verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+              pixelOffset: new Cesium.Cartesian2(0, -12),
+              style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+              outlineWidth: 5,
+              font: "20px sans-serif",
+              heightReference: Cesium.HeightReference.RELATIVE_TO_GROUND,
+              height: -100,
+              disableDepthTestDistance: 10000000,
+            },
+          },
+        },
+        {
+          id: 2,
+          //name: "大名县城市道路",
+          name: "线",
+          sourceType: "vector",
+          layerType: "polyline",
+          url: `http://106.119.74.112:2231/stservice/tile_vector/1827229149723500545/{z}/{x}/{y}?ak=${ak}`,
+          mvtLayer: null,
+          bounds: [
+            115.10990511263094, 36.2503638904812, 115.23108853710637,
+            36.31885029680379,
+          ],
+          minZoom: 9,
+          crsCode: "EPSG:4490",
+          renderOptions: {
+            // Polyline: {
+            // color: Cesium.Color.RED,
+            width: 6,
+            // material: new Cesium.Material({
+            //   fabric: {
+            //     type: "Color",
+            //     uniforms: {
+            //       color: new Cesium.Color(1.0, 1.0, 0.0, 1.0),
+            //     },
+            //   },
+            // }),
+            // material: createRoundCapMaterial(Cesium.Color.YELLOW),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineOutlineType),
+            // material: Cesium.Material.fromType(Cesium.Material.RimLightingType),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineDashType),
+            material: createDashedLineMaterial(
+              Cesium.Color.YELLOW,
+              10.0 // 虚线长度
+              // 20.0 // 间隔长度
+            ),
+            // },
+          },
+        },
+        {
+          id: 9,
+          //name: "大名县城市道路",
+          name: "线",
+          sourceType: "vector",
+          layerType: "polyline",
+          url: `http://106.119.74.112:2231/stservice/tile_vector/1827229149723500545/{z}/{x}/{y}?ak=${ak}`,
+          mvtLayer: null,
+          bounds: [
+            115.10990511263094, 36.2503638904812, 115.23108853710637,
+            36.31885029680379,
+          ],
+          minZoom: 9,
+          crsCode: "EPSG:4490",
+          renderOptions: {
+            // Polyline: {
+            // color: Cesium.Color.RED,
+            width: 6,
+            // material: new Cesium.Material({
+            //   fabric: {
+            //     type: "Color",
+            //     uniforms: {
+            //       color: new Cesium.Color(1.0, 1.0, 0.0, 1.0),
+            //     },
+            //   },
+            // }),
+            // material: createRoundCapMaterial(Cesium.Color.YELLOW),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineOutlineType),
+            // material: Cesium.Material.fromType(Cesium.Material.RimLightingType),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineDashType),
+            material: createDashedLineMaterial(
+              Cesium.Color.YELLOW,
+              10.0 // 虚线长度
+              // 20.0 // 间隔长度
+            ),
+            // },
+          },
+        },
+        {
+          id: 99,
+          //name: "大名县城市道路",
+          name: "线",
+          sourceType: "vector",
+          layerType: "polyline",
+          url: `http://106.119.74.112:2231/stservice/tile_vector/1827229149723500545/{z}/{x}/{y}?ak=${ak}`,
+          mvtLayer: null,
+          bounds: [
+            115.10990511263094, 36.2503638904812, 115.23108853710637,
+            36.31885029680379,
+          ],
+          minZoom: 9,
+          crsCode: "EPSG:4490",
+          renderOptions: {
+            // Polyline: {
+            // color: Cesium.Color.RED,
+            width: 6,
+            // material: new Cesium.Material({
+            //   fabric: {
+            //     type: "Color",
+            //     uniforms: {
+            //       color: new Cesium.Color(1.0, 1.0, 0.0, 1.0),
+            //     },
+            //   },
+            // }),
+            // material: createRoundCapMaterial(Cesium.Color.YELLOW),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineOutlineType),
+            // material: Cesium.Material.fromType(Cesium.Material.RimLightingType),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineDashType),
+            material: createDashedLineMaterial(
+              Cesium.Color.YELLOW,
+              10.0 // 虚线长度
+              // 20.0 // 间隔长度
+            ),
+            // },
+          },
+        },
+        {
+          id: 97,
+          //name: "大名县城市道路",
+          name: "线",
+          sourceType: "vector",
+          layerType: "polyline",
+          url: `http://106.119.74.112:2231/stservice/tile_vector/1827229149723500545/{z}/{x}/{y}?ak=${ak}`,
+          mvtLayer: null,
+          bounds: [
+            115.10990511263094, 36.2503638904812, 115.23108853710637,
+            36.31885029680379,
+          ],
+          minZoom: 9,
+          crsCode: "EPSG:4490",
+          renderOptions: {
+            // Polyline: {
+            // color: Cesium.Color.RED,
+            width: 6,
+            // material: new Cesium.Material({
+            //   fabric: {
+            //     type: "Color",
+            //     uniforms: {
+            //       color: new Cesium.Color(1.0, 1.0, 0.0, 1.0),
+            //     },
+            //   },
+            // }),
+            // material: createRoundCapMaterial(Cesium.Color.YELLOW),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineOutlineType),
+            // material: Cesium.Material.fromType(Cesium.Material.RimLightingType),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineDashType),
+            material: createDashedLineMaterial(
+              Cesium.Color.YELLOW,
+              10.0 // 虚线长度
+              // 20.0 // 间隔长度
+            ),
+            // },
+          },
+        },
+        {
+          id: 92,
+          //name: "大名县城市道路",
+          name: "线",
+          sourceType: "vector",
+          layerType: "polyline",
+          url: `http://106.119.74.112:2231/stservice/tile_vector/1827229149723500545/{z}/{x}/{y}?ak=${ak}`,
+          mvtLayer: null,
+          bounds: [
+            115.10990511263094, 36.2503638904812, 115.23108853710637,
+            36.31885029680379,
+          ],
+          minZoom: 9,
+          crsCode: "EPSG:4490",
+          renderOptions: {
+            // Polyline: {
+            // color: Cesium.Color.RED,
+            width: 6,
+            // material: new Cesium.Material({
+            //   fabric: {
+            //     type: "Color",
+            //     uniforms: {
+            //       color: new Cesium.Color(1.0, 1.0, 0.0, 1.0),
+            //     },
+            //   },
+            // }),
+            // material: createRoundCapMaterial(Cesium.Color.YELLOW),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineOutlineType),
+            // material: Cesium.Material.fromType(Cesium.Material.RimLightingType),
+            // material: Cesium.Material.fromType(Cesium.Material.PolylineDashType),
+            material: createDashedLineMaterial(
+              Cesium.Color.YELLOW,
+              10.0 // 虚线长度
+              // 20.0 // 间隔长度
+            ),
+            // },
+          },
+        },
         {
           id: 3,
           //name: "基本农田",
@@ -218,6 +370,7 @@ export default {
             114.97053716500612, 36.08551112667936, 115.48131798576647,
             36.50479401734554,
           ],
+          minZoom: 9,
           crsCode: "EPSG:4490",
           renderOptions: {
             material: new Cesium.Material({
@@ -228,6 +381,47 @@ export default {
                 },
               },
             }),
+            //     material: new Cesium.Material({
+            //       fabric: {
+            //         type: "CustomPolygonWithBorder",
+            //         uniforms: {
+            //           fillColor: new Cesium.Color(1.0, 1.0, 0.0, 0.5), // 多边形填充颜色
+            //           borderColor: new Cesium.Color(0.0, 1.0, 1.0, 0.5), // 边框颜色
+            //           borderWidth: 2.0, // 边框宽度
+            //         },
+            //         source: `
+            //         uniform vec4 fillColor;
+            //         uniform vec4 borderColor;
+            //         uniform float borderWidth;
+            //   czm_material czm_getMaterial(czm_materialInput materialInput) {
+            //     czm_material material = czm_getDefaultMaterial(materialInput);
+            //     vec2 st = materialInput.st;
+            //     vec3 pos = materialInput.positionToEyeEC;
+            //     vec3 normal = normalize(materialInput.normalEC);
+            //     vec3 lightDirection = normalize(czm_lightDirectionEC);
+
+            //     // 计算法线方向上的距离
+            //     float distanceToEdge = abs(dot(normal, pos));
+
+            //     // 如果距离小于边框宽度，则绘制边框
+            //     // if (distanceToEdge < borderWidth) {
+            //     //   material.diffuse = borderColor;
+            //     // } else {
+            //     //   material.diffuse = fillColor;
+            //     // }
+            //     if (distanceToEdge < borderWidth) {
+            //       material.diffuse = borderColor.rgb;
+            //       material.alpha = borderColor.a;
+            //     } else {
+            //       material.diffuse = fillColor.rgb;
+            //       material.alpha = fillColor.a;
+            //     }
+
+            //     return material;
+            //   }
+            // `,
+            //       },
+            //     }),
           },
         },
         {
@@ -239,54 +433,19 @@ export default {
           url: `http://106.119.74.112:2231/stservice/tile_3d/1806495748796325890/tileset.json?ak=${ak}`,
           mvtLayer: null,
         },
-        // {
-        //   id: 5,
-        //   //name: "大名县线状水系",
-        //   name: "水系",
-        //   sourceType: "vector",
-        //   layerType: "polyline",
-        //   url: `http://106.119.74.112:2231/stservice/tile_vector/1799339397532078081/{z}/{x}/{y}?ak=${ak}`,
-        //   mvtLayer: null,
-        //   bounds: [
-        //     114.97038976457611, 36.10066794077295, 115.4712961462003,
-        //     36.502961775965275,
-        //   ],
-        //   crsCode: "EPSG:4490",
-        //   renderOptions: {
-        //     // Polyline: {
-        //     // color: Cesium.Color.RED,
-        //     width: 6,
-        //     material: new Cesium.Material({
-        //       fabric: {
-        //         type: "Color",
-        //         uniforms: {
-        //           color: new Cesium.Color(0, 0, 1.0, 0.3),
-        //         },
-        //       },
-        //     }),
-        //     // material: createRoundCapMaterial(Cesium.Color.YELLOW),
-        //     // material: Cesium.Material.fromType(Cesium.Material.PolylineOutlineType),
-        //     // material: Cesium.Material.fromType(Cesium.Material.RimLightingType),
-        //     // material: Cesium.Material.fromType(Cesium.Material.PolylineDashType),
-        //     // material: createDashedLineMaterial(
-        //     //   Cesium.Color.YELLOW,
-        //     //   10.0 // 虚线长度
-        //     //   // 20.0 // 间隔长度
-        //     // ),
-        //     // },
-        //   },
-        // },
       ],
     };
   },
   mounted() {
     // treeLayers
-    this.treeData.forEach(i => {
+    this.treeData.forEach((i) => {
       treeLayers.push({
         layerName: i.name,
-        mvtLayer: null
-      })
-    })
+        mvtLayer: null,
+        renderOptions: i.renderOptions,
+      });
+      delete i.renderOptions;
+    });
     this.initMap();
     this.addTreeDataLayers();
   },
@@ -354,6 +513,9 @@ export default {
         case "3DTiles":
           this.add3DTiles(i);
           break;
+        case "raster":
+          this.addRasterLayer(i);
+          break;
         default:
           this.addMVTLayer(i);
           break;
@@ -372,7 +534,7 @@ export default {
     },
     checkChange(data, itemCheck) {
       // data.mvtLayer.show = itemCheck;
-      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
+      const treeLayerObj = treeLayers.find((i) => i.layerName == data.name);
       treeLayerObj.mvtLayer.show = itemCheck;
     },
     nodeClick(data, node, event) {
@@ -386,7 +548,7 @@ export default {
       }
     },
     flyTo3DTiles(data) {
-      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
+      const treeLayerObj = treeLayers.find((i) => i.layerName == data.name);
       viewer.flyTo(treeLayerObj.mvtLayer);
     },
     flyToLayer(data) {
@@ -436,17 +598,19 @@ export default {
         })
       );
       // data.mvtLayer = tileset;
-      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
+      const treeLayerObj = treeLayers.find((i) => i.layerName == data.name);
       treeLayerObj.mvtLayer = tileset;
     },
     addTerrain() {},
     addMVTLayer(data) {
+      const treeLayerObj = treeLayers.find((i) => i.layerName == data.name);
       const mvtp = new MVTDynamicPrimitive(viewer.scene, data.url, {
-        renderOptions: data.renderOptions,
+        minZoom: data.minZoom || 0,
+        maxZoom: data.maxZoom || 0,
+        renderOptions: treeLayerObj.renderOptions,
       });
       viewer.scene.primitives.add(mvtp);
       // data.mvtLayer = mvtp;
-      const treeLayerObj = treeLayers.find(i => i.layerName == data.name);
       treeLayerObj.mvtLayer = mvtp;
     },
     // addPoint(data) {
@@ -498,7 +662,6 @@ export default {
     //   //   "区片名", // 默认图标
     //   // ]
     // },
-    addRasterLayer(data) {},
     // javascript 转换
     // 4326转3857
     WGS84ToMercator(lonlat) {
@@ -528,6 +691,24 @@ export default {
       lonlat.x = x;
       lonlat.y = y;
       return lonlat;
+    },
+    addRasterLayer(data) {
+      let tilingScheme = null;
+      if (data.crsCode == "EPSG:3857") {
+        tilingScheme = new Cesium.WebMercatorTilingScheme();
+      } else {
+        tilingScheme = new Cesium.GeographicTilingScheme();
+      }
+      const layer = viewer.imageryLayers.addImageryProvider(
+        new Cesium.UrlTemplateImageryProvider({
+          url: data.url, //服务地址
+          tilingScheme: tilingScheme, // 3857
+          // tilingScheme: new Cesium.WebMercatorTilingScheme(), // 3857
+          // tilingScheme: new Cesium.GeographicTilingScheme(), // 4326
+        })
+      );
+      const treeLayerObj = treeLayers.find((i) => i.layerName == data.name);
+      treeLayerObj.mvtLayer = layer;
     },
   },
 };
